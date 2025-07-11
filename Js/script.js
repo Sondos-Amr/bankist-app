@@ -99,3 +99,10 @@ const userNames = function (accs) {
   });
 };
 userNames(accounts);
+
+// <--!  display Balance -->
+const displayBalance = function (acc) {
+  const balance = acc.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${+balance}€`;
+};
+displayBalance(account1.movements);
