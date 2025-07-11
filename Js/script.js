@@ -1,4 +1,5 @@
 "use strict";
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // BANKIST APP
@@ -69,6 +70,7 @@ const inputClosePin = document.querySelector(".form__input--pin");
 /////////////////////////////////////////////////
 // Functions
 
+// <--!  display Movments -->
 const displayMovments = function (acc) {
   acc.forEach((mov, i) => {
     const type = mov > 0 ? "deposit" : "withdrawal";
@@ -85,3 +87,15 @@ const displayMovments = function (acc) {
 };
 
 displayMovments(account1.movements);
+
+// <--! user name  -->
+const userNames = function (accs) {
+  accs.forEach((acc) => {
+    acc.userName = acc.owner
+      .toLowerCase()
+      .split(" ")
+      .map((name) => name[0])
+      .join("");
+  });
+};
+userNames(accounts);
