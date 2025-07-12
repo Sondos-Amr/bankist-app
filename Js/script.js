@@ -71,8 +71,8 @@ const inputClosePin = document.querySelector(".form__input--pin");
 // Functions
 
 // <--!  display Movments -->
-const displayMovments = function (acc) {
-  acc.forEach((mov, i) => {
+const displayMovments = function (movs) {
+  movs.forEach((mov, i) => {
     const type = mov > 0 ? "deposit" : "withdrawal";
     const html = `
         <div class="movements__row">
@@ -101,8 +101,26 @@ const userNames = function (accs) {
 userNames(accounts);
 
 // <--!  display Balance -->
-const displayBalance = function (acc) {
-  const balance = acc.reduce((acc, mov) => acc + mov, 0);
+const displayBalance = function (movs) {
+  const balance = movs.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = `${+balance}€`;
 };
 displayBalance(account1.movements);
+
+// <--!  display Summary -->
+const displaySummary = function (movs) {
+  const incomes = movs
+    .filter((mov) => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${+incomes}€`;
+
+  const out = movs.filter((mov) => mov < 0).reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${+Math.abs(out)}€`;
+
+  const interest = movs
+    .filter((mov) => mov > 0)
+    .map((deposit) => (deposit * 1.2) / 100)
+    .reduce((acc, init) => acc + init, 0);
+  labelSumInterest.textContent = `${+interest}€`;
+};
+displaySummary(account1.movements);
